@@ -131,7 +131,7 @@ export default class CarList extends Component {
               <h4>Car</h4>
               <div>
                 <label>
-                  <strong>name:</strong>
+                  <strong>Name:</strong>
                 </label>{" "}
                 {currentCar.name}
               </div>

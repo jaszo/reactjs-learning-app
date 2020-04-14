@@ -43,6 +43,7 @@ export default class AddCarl extends Component {
           id: response.data.id,
           name: response.data.name,
           model: response.data.model,
+          notes: response.data.notes,
           available: response.data.available,
 
           submitted: true
