@@ -6,6 +6,7 @@ export default class AddCarl extends Component {
     id: null,
     name: '',
     model: '',
+    price: 0.00,
     notes: '',
     available: false,
     submitted: false
@@ -24,6 +25,12 @@ export default class AddCarl extends Component {
     });
   };
 
+  onChangePrice = (e) => {
+    this.setState({
+      price: e.target.value
+    });
+  }
+
   onChangeNotes = (e) => {
     this.setState({
       notes: e.target.value
@@ -34,6 +41,7 @@ export default class AddCarl extends Component {
     const data = {
       name: this.state.name,
       model: this.state.model,
+      price: this.state.price,
       notes: this.state.notes
     };
 
@@ -43,6 +51,7 @@ export default class AddCarl extends Component {
           id: response.data.id,
           name: response.data.name,
           model: response.data.model,
+          price: response.data.price,
           notes: response.data.notes,
           available: response.data.available,
 
@@ -59,6 +68,7 @@ export default class AddCarl extends Component {
       id: null,
       name: '',
       model: '',
+      price: 0.00,
       notes: '',
       available: false,
       submitted: false
@@ -100,6 +110,22 @@ export default class AddCarl extends Component {
                 value={this.state.model}
                 onChange={this.onChangeModel}
                 name="model"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="price">Price</label>
+              <input
+                type="number"
+                min="0"
+                max="1000000"
+                step="0.01"
+                className="form-control"
+                id="price"
+                required
+                value={this.state.price}
+                onChange={this.onChangePrice}
+                name="price"
               />
             </div>
 

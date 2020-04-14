@@ -143,6 +143,12 @@ export default class CarList extends Component {
               </div>
               <div>
                 <label>
+                  <strong>Price:</strong>
+                </label>{" "}
+                {(Math.round(currentCar.price * 100) / 100).toFixed(2)}
+              </div>
+              <div>
+                <label>
                   <strong>Notes:</strong>
                 </label>{" "}
                 {currentCar.notes}
@@ -151,7 +157,7 @@ export default class CarList extends Component {
                 <label>
                   <strong>Status:</strong>
                 </label>{" "}
-                {currentCar.available ? "Available" : "Pending"}
+                {currentCar.available ? "Available" : "Unavailable"}
               </div>
 
               <Link

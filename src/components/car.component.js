@@ -7,6 +7,7 @@ export default class Car extends Component {
       id: null,
       name: '',
       model: '',
+      price: 0.00,
       notes: '',
       available: false
     },
@@ -43,6 +44,19 @@ export default class Car extends Component {
     });
   };
 
+  onChangePrice = (e) => {
+    const price = e.target.value;
+
+    this.setState(function(prevState) {
+      return {
+        currentCar: {
+          ...prevState.currentCar,
+          price: price
+        }
+      };
+    });
+  };
+
   onChangeNotes = (e) => {
     const notes = e.target.value;
 
@@ -74,6 +88,7 @@ export default class Car extends Component {
       id: this.state.currentCar.id,
       name: this.state.currentCar.name,
       model: this.state.currentCar.model,
+      price: this.state.currentCar.price,
       notes: this.state.currentCar.notes,
       available: status
     };
@@ -150,6 +165,19 @@ export default class Car extends Component {
                 />
               </div>
               <div className="form-group">
+                <label htmlFor="price">Price</label>
+                <input
+                  type="number"
+                  min="0"
+                  max="1000000"
+                  step="0.01"
+                  className="form-control"
+                  id="price"
+                  value={currentCar.price}
+                  onChange={this.onChangePrice}
+                />
+              </div>
+              <div className="form-group">
                 <label htmlFor="notes">Notes</label>
                 <input
                   type="text"
@@ -164,7 +192,7 @@ export default class Car extends Component {
                 <label>
                   <strong>Status:</strong>
                 </label>
-                {currentCar.available ? "Available" : "Pending"}
+                {currentCar.available ? "Available" : "Unavailable"}
               </div>
             </form>
 
