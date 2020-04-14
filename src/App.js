@@ -1,31 +1,33 @@
-import React from 'react';
-import Header from './components/Header';
-import Inventory from './components/Inventory';
-// import axios from 'axios';
-
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-export default class App extends React.Component {
+import AddCar from './components/add-car.component';
+import Car from './components/car.component';
+import CarList from './components/car-list.component';
+
+export default class App extends Component {
+
   state = {
-    subtitle: 'No cars in the inventory!',
-    cars: []
+    title: 'No Cars!'
   };
 
   /**
    * Fetches/sets header subtitle from 
    * the server via HTTP GET request.
    */
-  getHeaderSubtitle = () => {
+  getTitle = () => {
     fetch('/api')
       .then(response => response.json())
       .then(response => {
         console.log(`This is the response: ${JSON.stringify(response)}`);
         this.setState(() => ({
-          subtitle: response.subtitle
+          title: response.title
         }));
       })
       .catch((error) => {
-        console.log(`There was an error getting car inventory: ${JSON.stringify(error)}`);
+        console.log(`There was an error getting app title: ${JSON.stringify(error)}`);
       });
     
     // @TODO research if using axios
@@ -55,19 +57,40 @@ export default class App extends React.Component {
   componentDidMount() {
     // Get the header subtitle
     // from the server.
-    this.getHeaderSubtitle();
+    this.getTitle();
   }
 
   render() {
     return (
-      <div>
-        <Header subtitle={this.state.subtitle} />
-        <div className="container">
-          <div className="widget">
-            <Inventory />
+      <Router>
+        <div>
+          <nav className="navbar navbar-expand navbar-dark bg-dark">
+            <a href="/cars" className="navbar-brand">
+              {this.state.title}
+            </a>
+            <div className="navbar-nav mr-auto">
+              <li className="nav-item">
+                <Link to={"/cars"} className="nav-link">
+                  Cars
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to={"/add"} className="nav-link">
+                  Add
+                </Link>
+              </li>         
+            </div>
+          </nav>
+
+          <div className="container mt-3">
+            <Switch>
+              <Route exact path={["/", "/cars"]} component={CarList} />
+              <Route exact path="/add" component={AddCar} />
+              <Route exact path="/cars/:id" component={Car} />
+            </Switch>
           </div>
         </div>
-      </div>
-    );
+      </Router>
+    )
   }
 }
