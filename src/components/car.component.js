@@ -56,7 +56,7 @@ export default class Car extends Component {
     });
   };
 
-  getTutorial = (id) => {
+  getCar = (id) => {
     CarDataService.get(id)
       .then(response => {
         this.setState({
